@@ -65,6 +65,52 @@
 
     <tx:annotation-driven transaction-manager="transactionManager" />
 
+    <!--<bean id="taskJob" class="com.quartz.job.TestJob"/>
+
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="concurrent" value="false"/>
+        <property name="targetObject">
+            <ref bean="taskJob"/>
+        </property>
+        <property name="targetMethod">
+            <value>execute</value>
+        </property>
+    </bean>
+
+    &lt;!&ndash;  调度触发器 &ndash;&gt;
+    <bean id="myTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="work_default_name"/>
+        <property name="group" value="work_default"/>
+        <property name="jobDetail">
+            <ref bean="jobDetail" />
+        </property>
+        <property name="cronExpression">
+            <value>0/5 * * * * ?</value>
+        </property>
+    </bean>
+
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="myTrigger"/>
+            </list>
+        </property>
+    </bean>-->
+
+    <bean id="email" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.163.com"/>
+        <property name="username" value="13755682283@163.com"/>
+        <property name="password" value="1995ldy"/>
+        <property name="port" value="25" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.timeout">25000</prop>
+            </props>
+        </property>
+    </bean>
+<!--
     <tx:advice id="txAdvice" transaction-manager="transactionManager" >
         <tx:attributes>
             <tx:method name="del*" propagation="REQUIRED" rollback-for="java.lang.Exception" no-rollback-for="java.lang.RuntimeException" />
@@ -84,7 +130,7 @@
 
     <aop:config>
         <aop:advisor pointcut="execution(* com.service.*.*(..))" advice-ref="txAdvice" />
-    </aop:config>
+    </aop:config>-->
 
 
 </beans>

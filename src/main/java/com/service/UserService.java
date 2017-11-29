@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    List<User> getUserById(Integer id);
+    User getUserById(Integer id);
+    void updateUserMoney(Integer userId, Integer addMoney);
 }
+

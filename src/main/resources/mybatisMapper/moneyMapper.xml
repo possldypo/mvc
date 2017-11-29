@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.MoneyDao">
+    <select id="getUserMoney" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+        select amount from l_money where user_id=#{userId,jdbcType=INTEGER}
+    </select>
+    <insert id="insertUserMoney" >
+        insert into l_money(user_id,amount) values(#{userId,jdbcType=INTEGER},#{money,jdbcType=INTEGER})
+    </insert>
+    <update id="updateUserMoney">
+        update l_money set amount=#{money,jdbcType=INTEGER} WHERE user_id=#{userId,jdbcType=INTEGER}
+    </update>
+</mapper>

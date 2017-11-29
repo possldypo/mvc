@@ -4,17 +4,9 @@ package com.entity;
  * Created by 123 on 2017/11/15.
  */
 public class User {
-    private String userName;
     private Integer id;
+    private String userName;
     private Integer age;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public Integer getId() {
         return id;
@@ -22,6 +14,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Integer getAge() {

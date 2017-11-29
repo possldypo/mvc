@@ -11,5 +11,5 @@ import java.util.List;
  */
 @Repository
 public interface UserDao {
-    List<User> getUser(@Param("id")Integer id);
+    User getUser(Integer id);
 }
