@@ -10,6 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.Random;
+
+import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -52,8 +61,10 @@ public class UserController {
         }
         return "ok";
     }
-    @RequestMapping("getImage")
-    public void getImage(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping("login")
+    @ResponseBody
+    public void login(String email, String password){
+
 
     }
 }
