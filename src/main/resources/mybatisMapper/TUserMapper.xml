@@ -131,4 +131,10 @@
     from t_user
     where id = #{id,jdbcType=VARCHAR}}
   </select>
+  <update id="updatePasswordByEmail">
+    update t_user (password) set password=#{password,jdbcType=VARCHAR} where email=#{email,jdbcType=VARCHAR}
+  </update>
+  <update id="updatePasswordById">
+    update t_user (password) set password=#{password,jdbcType=VARCHAR} where id=#{id,jdbcType=INTEGER}
+  </update>
 </mapper>

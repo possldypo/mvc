@@ -1,9 +1,8 @@
 package com.service;
 
+import com.entity.TRetrievedPassword;
 import com.entity.TUser;
 import com.entity.User;
-
-import java.util.List;
 
 
 public interface UserService {
@@ -12,5 +11,8 @@ public interface UserService {
     void updateUserMoney(Integer userId, Integer addMoney);
     void insertTUser(TUser user);
     TUser selectTUser(String eMail);
+    void insertRetrieved(String email,String password);
+    TRetrievedPassword selectRPByEmail(String email);
+    void updatePassword(String email,Integer id,String password);
 }
 

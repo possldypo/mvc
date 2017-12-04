@@ -1,9 +1,10 @@
 package com.service.impl;
 
 import com.dao.MoneyDao;
+import com.dao.TRetrievedPasswordMapper;
 import com.dao.TUserMapper;
 import com.dao.UserDao;
-import com.entity.Money;
+import com.entity.TRetrievedPassword;
 import com.entity.TUser;
 import com.entity.User;
 import com.service.UserService;
@@ -12,8 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 
 @Service
@@ -27,6 +26,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private TUserMapper tUserMapper;
+
+    @Autowired
+    private TRetrievedPasswordMapper tRetrievedPasswordMapper;
 
     @Transactional
     public User getUserById(Integer id) {
@@ -58,5 +60,21 @@ public class UserServiceImpl implements UserService{
 
     public TUser selectTUser(String eMail){
         return tUserMapper.selectByEmail(eMail);
+    }
+
+    @Override
+    public void insertRetrieved(String email,String password){}
+
+    @Override
+    public TRetrievedPassword selectRPByEmail(String email) {
+        return tRetrievedPasswordMapper.selectByEmail(email);
+    }
+    @Override
+    public void updatePassword(String email,Integer id,String password){
+        if(null != id){
+            tUserMapper.updatePasswordById(password,id);
+        }else if(null != email){
+            tUserMapper.updatePasswordByEmail(password,email);
+        }
     }
 }

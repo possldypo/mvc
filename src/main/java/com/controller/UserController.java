@@ -4,11 +4,10 @@ package com.controller;
 import com.common.ResultData;
 import com.common.utils.MD5;
 import com.common.utils.SendEmail;
+import com.entity.TRetrievedPassword;
 import com.entity.TUser;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,14 +26,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @RequestMapping("/getUser")
-    public String getUser(){
-        System.out.println("aaa");
-        System.out.println(userService.getUserById(1).getUserName());
-        //userService.updateUserMoney(1,5555);
-        return "aaa";
-    }
 
     @RequestMapping("register")
     public ResultData register(@Valid TUser user, BindingResult bindingResult){
@@ -68,6 +59,7 @@ public class UserController {
             return resultData;
         }
         try {
+            userService.insertRetrieved(eMail,password);
             String secretKey = MD5.getMD5(tUser.getId().toString()+tUser.getCreateTime().toString()+eMail);
             String url = "http://localhost/user/validator?email=" + eMail + "&valid=" + secretKey;
             if(new SendEmail().sendEmail(eMail,url,"密码重置")){
@@ -98,6 +90,26 @@ public class UserController {
         }catch (Exception e){
             resultData.setMsg(ResultData.MSG_FAILED);
             resultData.setCode(ResultData.CODE_FAILED);
+        }
+        return resultData;
+    }
+    @RequestMapping("validator")
+    public ResultData validator(String email,String valid){
+        ResultData resultData = new ResultData();
+        TRetrievedPassword tRetrievedPassword = userService.selectRPByEmail(email);
+        if(null != tRetrievedPassword){
+            TUser tUser = userService.selectTUser(email);
+            try {
+                if(MD5.getMD5(tUser.getId().toString()+tUser.getCreateTime().toString()+email).equals(valid)){
+
+                    userService.updatePassword(tUser.getEmail(),tUser.getId(),tRetrievedPassword.getPassword());
+                    resultData.setCode(ResultData.CODE_SUCCESS);
+                    resultData.setMsg(ResultData.MSG_FAILED);
+                }
+            } catch (Exception e) {
+                resultData.setMsg(ResultData.MSG_FAILED);
+                resultData.setCode(ResultData.CODE_FAILED);
+            }
         }
         return resultData;
     }
