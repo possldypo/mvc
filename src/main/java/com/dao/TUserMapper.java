@@ -1,7 +1,9 @@
 package com.dao;
 
 import com.entity.TUser;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TUserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface TUserMapper {
     int updateByPrimaryKeySelective(TUser record);
 
     int updateByPrimaryKey(TUser record);
+
+    TUser selectByEmail(String eMail);
 }

@@ -1,8 +1,10 @@
 package com.service.impl;
 
 import com.dao.MoneyDao;
+import com.dao.TUserMapper;
 import com.dao.UserDao;
 import com.entity.Money;
+import com.entity.TUser;
 import com.entity.User;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private MoneyDao moneyDao;
 
+    @Autowired
+    private TUserMapper tUserMapper;
 
     @Transactional
     public User getUserById(Integer id) {
@@ -46,5 +50,13 @@ public class UserServiceImpl implements UserService{
         }
         Integer nullData = null;
         System.out.println(nullData+1);
+    }
+
+    public void insertTUser(TUser user) {
+        tUserMapper.insert(user);
+    }
+
+    public TUser selectTUser(String eMail){
+        return tUserMapper.selectByEmail(eMail);
     }
 }
