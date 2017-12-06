@@ -101,7 +101,7 @@ public class UserController {
             TUser tUser = userService.selectTUser(email);
             try {
                 if(MD5.getMD5(tUser.getId().toString()+tUser.getCreateTime().toString()+email).equals(valid)){
-
+                    tRetrievedPassword.getLastUpdateTime();
                     userService.updatePassword(tUser.getEmail(),tUser.getId(),tRetrievedPassword.getPassword());
                     resultData.setCode(ResultData.CODE_SUCCESS);
                     resultData.setMsg(ResultData.MSG_FAILED);
